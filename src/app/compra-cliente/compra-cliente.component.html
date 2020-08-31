@@ -1,67 +1,78 @@
+
 <br>
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="card">
-            <div class="card-header">
-              Registrar Reparacion
-            </div>
-            <div class="card-body">
-                <div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">DUI</label>
-                        <input type="text" class="form-control"  placeholder="DUI" [(ngModel)]="DUI">
-                      </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1" >Nombre</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1"  placeholder="Nombre" [(ngModel)]="Nombre">                       
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Vehiculo</label>
-                        <input type="text" class="form-control"  placeholder="Vehiculo" [(ngModel)]="Vehiculo">
-                      </div>
-                    <div class="form-group">                      
-                      <label class="form-check-label" for="exampleCheck1">Costo</label>
-                      <input type="number" class="form-control" placeholder="$" [(ngModel)]="Monto">                      
-                    </div>
-                    <button type="submit" class="btn btn-primary" (click)="registrarVisita()">Registrar Visita</button>
-                </div>
-                <br>
-                <label>Descuento: {{desc}}</label>
-            </div>
-          </div>
+    <div class="col-md-10 offset-md-1">
+        <div class="jumbotron bg-dark text-white">
+            <h1 class="display-4">El Taller de Don Alex!</h1>
+            <p class="lead">Los clientes leales reciben descuentos</p>                       
+        </div>
     </div>
-    
+
+    <div class="col-md-10 offset-md-1">
+        <div class="row">
+            <!--Panel REgistro de cliente-->
+            <div class="col-md-4">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        Registrar Reparacion
+                    </div>
+                    <div class="card-body">        
+                            <form #registroVisitaForm="ngForm">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">DUI</label>
+                                    <input type="text" class="form-control" name="dui" placeholder="DUI" [(ngModel)]="DUI" (change)="verificarCliente()" required>
+                                    </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" >Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="exampleInputEmail1"  placeholder="Nombre" [(ngModel)]="Nombre" required>                       
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehiculo">Vehiculo</label>
+                                    <input type="text" class="form-control" name="vehiculo"  placeholder="Vehiculo" [(ngModel)]="Vehiculo" required>
+                                    </div>
+                                <div class="form-group">                      
+                                    <label class="form-check-label" for="monto">Costo de Reparacion</label>
+                                    <input type="number" class="form-control" name="monto" placeholder="$" [(ngModel)]="Monto" required>                      
+                                </div>
+                                <button type="submit" class="btn btn-success" [disabled]="!registroVisitaForm.form.valid" (click)="registrarVisita()">Registrar Visita</button>
+                            </form>                                       
+                    </div>
+                  </div>
+            </div>
+
+            <!--Panel Clientes Existentes-->
+            <div class="col-md-8">    
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                      Log de Clientes
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm table-striped table-hover table-dark">
+                            <thead>
+                                <th>DUI</th>
+                                <th>Nombre</th>
+                                <th>Vehiculo</th>
+                                <th>$Reparaciones Acumuladas</th>
+                                <th>#Visitas</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let regC of Clientes">
+                                    <td>{{regC.DUI}}</td>
+                                    <td>{{regC.Nombre}}</td>
+                                    <td>{{regC.Vehiculo}}</td>
+                                    <td>{{regC.Gastado}}</td>
+                                    <td>{{regC.Visitas}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<br/>
 
-<div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="card">
-            <div class="card-header">
-              Registrar Reparacion
-            </div>
-            <div class="card-body">
-                <table class="table table-sm table-dark">
-                    <thead>
-                        <th>DUI</th>
-                        <th>Nombre</th>
-                        <th>Vehiculo</th>
-                        <th>$ Gastado</th>
-                        <th># Visitas</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let regC of Clientes">
-                            <td>{{regC.DUI}}</td>
-                            <td>{{regC.Nombre}}</td>
-                            <td>{{regC.Vehiculo}}</td>
-                            <td>{{regC.Gastado}}</td>
-                            <td>{{regC.Visitas}}</td>
 
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-          </div>
-    </div>
-</div>
+
+
